@@ -28,20 +28,33 @@ int main(void)
     gpio_pin_configure_dt(&led3, GPIO_OUTPUT_INACTIVE);
 
     while (1) {
-        /* Fast LED (twice as fast) */
-        gpio_pin_toggle_dt(&led0);
+        /* led0 on, others off */
+        gpio_pin_set_dt(&led0, 1);
+        gpio_pin_set_dt(&led1, 0);
+        gpio_pin_set_dt(&led2, 0);
+        gpio_pin_set_dt(&led3, 0);
+        k_msleep(500);
 
-        /* Slow LEDs */
-        gpio_pin_toggle_dt(&led1);
-        gpio_pin_toggle_dt(&led2);
-        gpio_pin_toggle_dt(&led3);
+        /* led1 on */
+        gpio_pin_set_dt(&led0, 0);
+        gpio_pin_set_dt(&led1, 1);
+        gpio_pin_set_dt(&led2, 0);
+        gpio_pin_set_dt(&led3, 0);
+        k_msleep(500);
 
-        k_msleep(250);   /* fast blink period */
+        /* led2 on */
+        gpio_pin_set_dt(&led0, 0);
+        gpio_pin_set_dt(&led1, 0);
+        gpio_pin_set_dt(&led2, 1);
+        gpio_pin_set_dt(&led3, 0);
+        k_msleep(500);
 
-        /* Toggle only the fast LED again */
-        gpio_pin_toggle_dt(&led0);
-
-        k_msleep(250);   /* total fast period = 500 ms */
+        /* led3 on */
+        gpio_pin_set_dt(&led0, 0);
+        gpio_pin_set_dt(&led1, 0);
+        gpio_pin_set_dt(&led2, 0);
+        gpio_pin_set_dt(&led3, 1);
+        k_msleep(500);
     }
 
     return 0;
